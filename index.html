@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <!-- 🎯 全載具核心天線：確保行動裝置與 A4 紙張列印排版 100% 完美自適應 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>私立巴比美語短期補習班 | 短期補習服務契約書 (Let's Go 5)</title>
     <style>
@@ -439,7 +440,7 @@
                 <div class="legal-item">
                     <strong>第九條：肖像權合理使用授權與個資隱私安全保護 / Article 9: Portrait Rights and Personal Data Privacy Protection：</strong><br>
                     1. 甲方同意並授權乙方得於常態教學、成果發表或特殊節慶活動中進行拍照與錄影，並得將學員影像合理、不損及名譽地使用於補習班內部學習成果展示、官方網站或招生行銷文宣。<br>
-                    2. 乙方應營格遵守《個人資料保護法》規範，甲方所填報之所有個資僅得用於補習班內部教學行政與安全緊急聯絡，未經書面允許，絕不得洩漏給任何第三人。<br>
+                    2. 乙方應嚴格遵守《個人資料保護法》規範，甲方所填報之所有個資僅得用於補習班內部教學行政與安全緊急聯絡，未經書面允許，絕不得洩漏給任何第三人。<br>
                     <span class="legal-en">1. Party A authorizes Party B to take photos and videos during regular classes or holiday events, and reasonably use the images for internal achievement displays or official website promotional marketing, provided it doesn't harm the student's reputation.<br>2. Party B must strictly handle all personal data in full compliance with the Personal Data Protection Act solely for academic administration, safety, and urgent communication. Selling or disclosing data to third parties is strictly prohibited.</span>
                 </div>
                 <div class="legal-item">
@@ -450,7 +451,7 @@
                 <div class="legal-item">
                     <strong>第十一條：法律疑義解釋、保存期限與爭議管轄 / Article 11: Legal Interpretation, Preservation Term, and Jurisdiction：</strong><br>
                     1. 本契約各條款如有疑義時，應依據《消費者保護法》第十一條第二項規定，採取最有利於消費者（甲方）之方向進行法律解釋。<br>
-                    2. 本契約一式二份，由甲乙雙方各執一份為憑，自家長簽約日起生效。雙方合意合約保存期限不得少於五年，以備查核。<br>
+                    2. 本契約一式二份，由甲乙雙方各執一份為憑，自家長簽約日起生效（簽約日期：<span id="currentDateDisplay" style="font-weight:bold; color:var(--uci-blue);"></span>）。雙方合意合約保存期限不得少於五年，以備查核。<br>
                     <span class="legal-en">1. In case of doubts regarding contract clauses, interpretations shall lean in favor of the consumer (Party A) based on Article 11, Paragraph 2 of the Consumer Protection Act.<br>2. This contract is executed in duplicate, with each party holding one copy as evidence. Both parties agree that the contract preservation period shall be at least 5 years for compliance review.</span>
                 </div>
             </div>
@@ -500,13 +501,17 @@ var hasSignedParent = false;
 var hasSignedStaff = false;
 
 function resizeAllCanvases() {
-    parentCanvas.width = parentCanvas.parentElement.clientWidth;
-    parentCanvas.height = parentCanvas.parentElement.clientHeight;
-    parentCtx.strokeStyle = "#1b3d6d"; parentCtx.lineWidth = 3; parentCtx.lineCap = "round";
+    if(!hasSignedParent) {
+        parentCanvas.width = parentCanvas.parentElement.clientWidth;
+        parentCanvas.height = parentCanvas.parentElement.clientHeight;
+        parentCtx.strokeStyle = "#1b3d6d"; parentCtx.lineWidth = 3; parentCtx.lineCap = "round";
+    }
 
-    staffCanvas.width = staffCanvas.parentElement.clientWidth;
-    staffCanvas.height = staffCanvas.parentElement.clientHeight;
-    staffCtx.strokeStyle = "#0077b6"; staffCtx.lineWidth = 3; staffCtx.lineCap = "round";
+    if(!hasSignedStaff) {
+        staffCanvas.width = staffCanvas.parentElement.clientWidth;
+        staffCanvas.height = staffCanvas.parentElement.clientHeight;
+        staffCtx.strokeStyle = "#0077b6"; staffCtx.lineWidth = 3; staffCtx.lineCap = "round";
+    }
 }
 
 parentCanvas.addEventListener('mousedown', function(e) { isDrawingParent = true; hasSignedParent = true; draw(parentCtx, e.offsetX, e.offsetY); });
@@ -593,9 +598,25 @@ function prepareSubmit(event) {
         document.getElementById('signature_staff_base64').value = "[本次由家長單向自主簽署，尚未執行行政櫃檯實體複簽覆蓋]";
     }
     
-    document.getElementById('submitBtn').innerText = "正傳送至 Joy 負責人法律簽核夾...";
-    document.getElementById('submitBtn').disabled = true;
-    document.getElementById('contractForm').submit();
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.innerText = "正傳送至 Joy 負責人法律簽核夾...";
+    submitBtn.disabled = true;
+
+    var googleAppsScriptUrl = "https://script.google.com/macros/s/AKfycbxt07hF-qkXePULEBjuCpzdWnaeNWsTlQV7dRhch_iBwtVePOIJzldTAsR0LothoQ1l/exec";
+    var form = document.getElementById('contractForm');
+
+    // 🎯 雙連線發射：先傳送至 Google Sheets 自動存檔，再執行 FormSubmit 發信
+    fetch(googleAppsScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+    })
+    .then(function() {
+        form.submit();
+    })
+    .catch(function() {
+        form.submit();
+    });
 }
 
 window.onload = function() {
@@ -613,7 +634,10 @@ window.onload = function() {
     document.getElementById('reviewYearDisplayEn').innerText = minguoYear;
     document.getElementById('reviewMonthDisplayEn').innerText = currentMonth;
     document.getElementById('reviewDayDisplayEn').innerText = currentDate;
-    document.getElementById('currentDateDisplay').innerText = today.getFullYear() + " 年 " + currentMonth + " 月 " + currentDate + " 日";
+    
+    if(document.getElementById('currentDateDisplay')) {
+        document.getElementById('currentDateDisplay').innerText = today.getFullYear() + " 年 " + currentMonth + " 月 " + currentDate + " 日";
+    }
     
     calculateContractBilling();
 };
