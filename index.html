@@ -91,7 +91,7 @@
             margin-bottom: 15px;
         }
 
-        /* 🔒 三大表格邊框防護：採用 collapse 演算法與實體深藍色 (#1b3d6d) */
+        /* 🔒 三大表格邊框防護：採用 collapse 演算法與實體深藍色 (#1b3d6d !important) */
         table {
             width: 100%;
             border-collapse: collapse !important;
@@ -376,10 +376,10 @@
                 <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
-            <!-- 🎯 契約審閱確認條款（精準帶入攜回當天日期起算） -->
+            <!-- 🎯 契約審閱確認條款 -->
             <div class="privacy-statement">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
-                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: #0077b6;"></span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: #0077b6;"></span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: #0077b6;"></span> 日由學員及監護人攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
+                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 日由學員及監護人攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
                 <span style="color: var(--text-sub); font-style: italic;">This standard contract was taken home by the student/parent for review on Minguo <span id="reviewYearDisplayEn"></span>/<span id="reviewMonthDisplayEn"></span>/<span id="reviewDayDisplayEn"></span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
             </div>
 
@@ -389,14 +389,18 @@
                     <tbody>
                         <tr>
                             <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
-                            <td style="font-weight: 700; color: var(--uci-blue); font-size: 13px;">Let's Go 5 兒童美語高級班</td>
+                            <!-- 🎯 精準修改：班別拆分為兩行，且上下左右 100% 幾何精準置中 -->
+                            <td style="font-weight: bold; color: var(--uci-blue); font-size: 13.5px; text-align: center; vertical-align: middle; line-height: 1.4;">
+                                Let's Go 5<br>兒童美語高級班
+                            </td>
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
                             <td>
                                 <select id="discountSelector" class="select-input" onchange="calculateContractBilling()">
                                     <option value="1">標準常規原價方案 / Standard Plan ($36,292)</option>
-                                    <option value="0.8">8折優惠方案 / 20% Off Promotion</option>
-                                    <option value="0.85">85折優惠方案 / 15% Off Promotion</option>
                                     <option value="0.9">9折優惠方案 / 10% Off Promotion</option>
+                                    <option value="0.85">85折優惠方案 / 15% Off Promotion</option>
+                                    <!-- 🎯 已刪除「老朋友」字樣，保留「8折優惠方案」 -->
+                                    <option value="0.8">8折優惠方案 / 20% Off Promotion</option>
                                 </select>
                             </td>
                         </tr>
@@ -404,11 +408,11 @@
                             <th><span class="zh-title">(1) 學費</span><span class="en-title">Tuition Fee</span></th>
                             <td id="td_tuition" style="font-weight: 700; color: var(--uci-blue);">NT$ 31,620 元</td>
                             <th><span class="zh-title">(2) 講義教材費</span><span class="en-title">Materials Fee</span></th>
-                            <td style="font-weight: 700; color: var(--uci-blue);">NT$ 1,612 元</td>
+                            <td id="td_materials" style="font-weight: 700; color: var(--uci-blue);">NT$ 1,612 元</td>
                         </tr>
                         <tr>
                             <th><span class="zh-title">(3) 當期學雜費</span><span class="en-title">School Fees</span></th>
-                            <td style="font-weight: 700; color: var(--uci-blue);">NT$ 3,060 元</td>
+                            <td id="td_misc" style="font-weight: 700; color: var(--uci-blue);">NT$ 3,060 元</td>
                             <th><span class="zh-title">核定繳費總金額(1)+(2)+(3)</span><span class="en-title">Grand Total (1)+(2)+(3)</span></th>
                             <td id="td_total" style="font-weight: 700; color: var(--soft-red); font-size: 14px;">NT$ 36,292 元</td>
                         </tr>
@@ -448,7 +452,7 @@
                 </div>
                 <div class="legal-item">
                     <strong>第五條：收費項目、金額與禁止不當收費 / Article 5: Fee Items, Grand Total, and Receipt Requirements：</strong><br>
-                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定原價總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">36,292</span> 元）。<br>
+                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定應繳總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">36,292</span> 元）。<br>
                     2. 未明列於契約內之項目，乙方不得收取。所有收取費用乙方應依法開立正式核定收據憑證交予甲方。<br>
                     <span class="legal-en">1. The tuition and fees consist of Base Tuition, Textbooks/Materials, and Fees, and the total payment shall be based on the actual Grand Total dynamically computed under Section 1 after discount deductions.<br>2. Party B shall not collect any fee items that are not explicitly specified herein under any pretext. Official receipts must be issued for all fees collected.</span>
                 </div>
@@ -596,30 +600,48 @@ function clearSig(target) {
     }
 }
 
+// =========================================================================
+// 🎯 核心修正：遵守最高協定全項目連動算式：
+// 【應繳總金額 = Math.round((基本學費 + 原價教材費 + 當期學雜費) * 折扣率)】
+// =========================================================================
 function calculateContractBilling() {
     var discountRatio = parseFloat(document.getElementById('discountSelector').value);
-    var originalTuition = 31620; // Let's Go 5 基本學費 ($620 x 51堂)
-    var materialsFee = 1612;     // Let's Go 5 專屬教材費
-    var schoolMiscFee = 3060;    // Let's Go 5 當期學雜費 ($60 x 51堂)
     
-    var finalTuition = Math.round(originalTuition * discountRatio);
-    var grandTotal = finalTuition + materialsFee + schoolMiscFee;
+    // Let's Go 5 標準三項基礎定額 (51堂課)
+    var pricePerLesson = 620;
+    var lessons = 51;
+    var baseTuition = pricePerLesson * lessons; // $31,620
+    var rawMaterials = 1612;                   // $1,612
+    var rawMisc = 60 * lessons;                // $3,060
+    
+    // 全項目未折總計 = 31,620 + 1,612 + 3,060 = 36,292
+    var subTotal = baseTuition + rawMaterials + rawMisc;
+    
+    // 🎯 全項目一律連動乘上折扣率並四捨五入整數！
+    var grandTotal = Math.round(subTotal * discountRatio);
 
-    document.getElementById('td_tuition').innerText = "NT$ " + finalTuition.toLocaleString() + " 元";
+    // 顯示於表格中
+    document.getElementById('td_tuition').innerText = "NT$ " + baseTuition.toLocaleString() + " 元";
+    document.getElementById('td_materials').innerText = "NT$ " + rawMaterials.toLocaleString() + " 元";
+    document.getElementById('td_misc').innerText = "NT$ " + rawMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
+    
+    // 🎯 法律條款第五條動態連動更新！
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
 
-    document.getElementById('hidden_tuition').value = finalTuition + " 元";
-    document.getElementById('hidden_materials').value = materialsFee + " 元";
-    document.getElementById('hidden_misc').value = schoolMiscFee + " 元";
+    // 備份死數據至 Form 隱藏欄位
+    document.getElementById('hidden_tuition').value = baseTuition + " 元";
+    document.getElementById('hidden_materials').value = rawMaterials + " 元";
+    document.getElementById('hidden_misc').value = rawMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
 
-    if(discountRatio < 1) {
-        var pctText = (discountRatio * 10).toFixed(1).replace('.0', '');
-        document.getElementById('formSubject').value = "【法律合約完成-享 " + pctText + " 折特惠】Let's Go 5 兒童美語高級班";
-    } else {
-        document.getElementById('formSubject').value = "【法律合約完成-標準常規原價】Let's Go 5 兒童美語高級班";
-    }
+    // 動態修改郵件主旨標籤
+    var discountText = "標準常規原價";
+    if (discountRatio === 0.9) discountText = "享 9 折特惠";
+    if (discountRatio === 0.85) discountText = "享 85 折特惠";
+    if (discountRatio === 0.8) discountText = "享 8 折特惠";
+
+    document.getElementById('formSubject').value = "【法律合約完成-" + discountText + "】Let's Go 5 兒童美語高級班";
 }
 
 function prepareSubmit(event) {
@@ -661,7 +683,7 @@ function prepareSubmit(event) {
 window.onload = function() {
     initCanvases();
     
-    // 🎯 貫徹最高指揮官 Joy 指令：審閱期日期即為家長收到當天日期，不為減天數變更！
+    // 🎯 貫徹最高指揮官 Joy 指令：審閱期日期即為家長收到當天日期！
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
