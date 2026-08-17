@@ -347,6 +347,7 @@
             body { padding: 8px; }
             .page { padding: 20px 15px; }
             .page-container { width: 100%; overflow-x: visible; }
+            .table-responsive-wrapper { overflow-x: auto; }
             table { min-width: 650px; } 
             .dual-signature-row { flex-direction: column; gap: 15px; }
             .signature-block { width: 100%; }
@@ -397,10 +398,9 @@
                             <td>
                                 <select id="discountSelector" class="select-input" onchange="calculateContractBilling()">
                                     <option value="1">標準常規原價方案 / Standard Plan ($36,292)</option>
-                                    <option value="0.9">9折優惠方案 / 10% Off Promotion</option>
-                                    <option value="0.85">85折優惠方案 / 15% Off Promotion</option>
-                                    <!-- 🎯 已刪除「老朋友」字樣，保留「8折優惠方案」 -->
-                                    <option value="0.8">8折優惠方案 / 20% Off Promotion</option>
+                                    <option value="0.9">享 9 折特惠 / 10% Off Promotion</option>
+                                    <option value="0.85">享 85 折特惠 / 15% Off Promotion</option>
+                                    <option value="0.8">享 8 折特惠 / 20% Off Promotion</option>
                                 </select>
                             </td>
                         </tr>
@@ -611,8 +611,8 @@ function calculateContractBilling() {
     var pricePerLesson = 620;
     var lessons = 51;
     var baseTuition = pricePerLesson * lessons; // $31,620
-    var rawMaterials = 1612;                   // $1,612
-    var rawMisc = 60 * lessons;                // $3,060
+    var rawMaterials = 1612;                    // $1,612
+    var rawMisc = 60 * lessons;                 // $3,060
     
     // 全項目未折總計 = 31,620 + 1,612 + 3,060 = 36,292
     var subTotal = baseTuition + rawMaterials + rawMisc;
@@ -629,7 +629,7 @@ function calculateContractBilling() {
     // 🎯 法律條款第五條動態連動更新！
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
 
-    // 備份死數據至 Form 隱藏欄位
+    // 備份數據至 Form 隱藏欄位
     document.getElementById('hidden_tuition').value = baseTuition + " 元";
     document.getElementById('hidden_materials').value = rawMaterials + " 元";
     document.getElementById('hidden_misc').value = rawMisc + " 元";
