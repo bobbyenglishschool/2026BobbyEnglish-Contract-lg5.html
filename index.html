@@ -17,7 +17,7 @@
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
             --card-bg: #f8fafc;
-            --border-color: #cbd5e1;
+            --border-color: #1b3d6d; /* 強制導向巴比深藍 */
             --text-main: #1e293b;
             --text-sub: #475569;
         }
@@ -83,7 +83,6 @@
             display: inline-block;
         }
 
-        /* 表格行動端包裹容器 */
         .table-responsive-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -137,6 +136,22 @@
             background-color: #fff;
         }
 
+        /* 🎯 Aegis 核心 UI 規範 5：選讀班別拆解兩行、去「班」字、100% 幾何精準居中 */
+        .static-course-cell {
+            font-weight: bold;
+            color: var(--uci-blue);
+            font-size: 13.5px;
+            text-align: center !important;
+            vertical-align: middle !important;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 4px 0;
+        }
+
         .select-input {
             font-size: 12px; 
             font-weight: bold;
@@ -170,6 +185,9 @@
             background-color: #f0f4f8;
             padding: 14px 18px;
             border-left: 4px solid var(--uci-blue);
+            border-top: 1px solid #1b3d6d !important;
+            border-right: 1px solid #1b3d6d !important;
+            border-bottom: 1px solid #1b3d6d !important;
             font-size: 13px;
             margin-bottom: 20px;
             border-radius: 6px;
@@ -177,7 +195,7 @@
         }
 
         .legal-box {
-            border: 1px solid var(--border-color);
+            border: 1px solid #1b3d6d !important;
             background-color: #fafbfc;
             padding: 20px;
             height: 420px; 
@@ -191,7 +209,7 @@
 
         .legal-item {
             margin-bottom: 20px;
-            border-bottom: 1px dashed #cbd5e1;
+            border-bottom: 1px dashed #1b3d6d;
             padding-bottom: 15px;
         }
 
@@ -241,7 +259,7 @@
             width: 100%;
             height: 140px;
             background-color: #fff;
-            border: 1.5px dashed var(--uci-blue);
+            border: 1.5px dashed var(--uci-blue) !important;
             position: relative;
             border-radius: 6px;
             overflow: hidden;
@@ -334,10 +352,10 @@
             body { background-color: #fff; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .page-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
             .page { padding: 0 !important; }
-            .legal-box { height: auto !important; overflow-y: visible !important; border: none; background-color: #fff; padding: 0; }
+            .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; background-color: #fff; padding: 0; }
             .legal-item { page-break-inside: avoid; }
             .canvas-clear-btn, .submit-btn-container, .print-btn-container { display: none !important; }
-            .signature-canvas-container { border: 1px solid var(--uci-blue); }
+            .signature-canvas-container { border: 1px solid var(--uci-blue) !important; }
             table, th, td { border: 1px solid #1b3d6d !important; }
             th { width: 25% !important; background-color: #f0f4f8 !important; }
             td { width: 25% !important; }
@@ -347,7 +365,6 @@
             body { padding: 8px; }
             .page { padding: 20px 15px; }
             .page-container { width: 100%; overflow-x: visible; }
-            .table-responsive-wrapper { overflow-x: auto; }
             table { min-width: 650px; } 
             .dual-signature-row { flex-direction: column; gap: 15px; }
             .signature-block { width: 100%; }
@@ -390,17 +407,21 @@
                     <tbody>
                         <tr>
                             <th><span class="zh-title">選讀核定班別</span><span class="en-title">Enrolled Course</span></th>
-                            <!-- 🎯 精準修改：班別拆分為兩行，且上下左右 100% 幾何精準置中 -->
-                            <td style="font-weight: bold; color: var(--uci-blue); font-size: 13.5px; text-align: center; vertical-align: middle; line-height: 1.4;">
-                                Let's Go 5<br>兒童美語高級班
+                            <!-- 🎯 Aegis 核心 UI 規範 5：班別拆分為兩行，上下左右 100% 幾何精準置中，並刪除贅字「班」 -->
+                            <td>
+                                <div class="static-course-cell">
+                                    <span style="font-size: 14px; font-weight: 800;">Let's Go 5</span>
+                                    <span style="font-size: 12px; font-weight: 600; margin-top: 2px;">兒童美語高級</span>
+                                </div>
                             </td>
                             <th><span class="zh-title">核定收費方案選擇</span><span class="en-title">Tuition Plan Option</span></th>
                             <td>
                                 <select id="discountSelector" class="select-input" onchange="calculateContractBilling()">
                                     <option value="1">標準常規原價方案 / Standard Plan ($36,292)</option>
-                                    <option value="0.9">享 9 折特惠 / 10% Off Promotion</option>
-                                    <option value="0.85">享 85 折特惠 / 15% Off Promotion</option>
-                                    <option value="0.8">享 8 折特惠 / 20% Off Promotion</option>
+                                    <option value="0.9">9折優惠方案 / 10% Off Promotion ($32,663)</option>
+                                    <option value="0.85">85折優惠方案 / 15% Off Promotion ($30,848)</option>
+                                    <!-- 🎯 Aegis 核心 UI 規範 6：刪除「老朋友」字樣，統一為「✨ 8 折優惠」 -->
+                                    <option value="0.8">✨ 8折優惠方案 / 20% Off Promotion ($29,034)</option>
                                 </select>
                             </td>
                         </tr>
@@ -452,7 +473,7 @@
                 </div>
                 <div class="legal-item">
                     <strong>第五條：收費項目、金額與禁止不當收費 / Article 5: Fee Items, Grand Total, and Receipt Requirements：</strong><br>
-                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定應繳總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">36,292</span> 元）。<br>
+                    1. 本期核定收費費用包含基本學費、教材講義費及當期學雜費，當期實際應繳總金額以本合約第一項動態計算扣除優惠減免後之實際金額為準（目前核定原價總額為新台幣 <span id="legal_total_zh" style="font-weight:bold; color:var(--soft-red);">36,292</span> 元）。<br>
                     2. 未明列於契約內之項目，乙方不得收取。所有收取費用乙方應依法開立正式核定收據憑證交予甲方。<br>
                     <span class="legal-en">1. The tuition and fees consist of Base Tuition, Textbooks/Materials, and Fees, and the total payment shall be based on the actual Grand Total dynamically computed under Section 1 after discount deductions.<br>2. Party B shall not collect any fee items that are not explicitly specified herein under any pretext. Official receipts must be issued for all fees collected.</span>
                 </div>
@@ -601,7 +622,7 @@ function clearSig(target) {
 }
 
 // =========================================================================
-// 🎯 核心修正：遵守最高協定全項目連動算式：
+// 🎯 核心修正：遵守最高協定全項目連動算式，且 Hidden 欄位完美咬合：
 // 【應繳總金額 = Math.round((基本學費 + 原價教材費 + 當期學雜費) * 折扣率)】
 // =========================================================================
 function calculateContractBilling() {
@@ -610,32 +631,34 @@ function calculateContractBilling() {
     // Let's Go 5 標準三項基礎定額 (51堂課)
     var pricePerLesson = 620;
     var lessons = 51;
-    var baseTuition = pricePerLesson * lessons; // $31,620
+    var rawTuition = pricePerLesson * lessons; // $31,620
     var rawMaterials = 1612;                    // $1,612
     var rawMisc = 60 * lessons;                 // $3,060
     
-    // 全項目未折總計 = 31,620 + 1,612 + 3,060 = 36,292
-    var subTotal = baseTuition + rawMaterials + rawMisc;
+    // 🎯 折扣連動計算：全項目皆乘上折扣率並四捨五入，確保加總 100% 咬合！
+    var calculatedTuition = Math.round(rawTuition * discountRatio);
+    var calculatedMaterials = Math.round(rawMaterials * discountRatio);
+    var calculatedMisc = Math.round(rawMisc * discountRatio);
     
-    // 🎯 全項目一律連動乘上折扣率並四捨五入整數！
-    var grandTotal = Math.round(subTotal * discountRatio);
+    // 應繳實際總計金額
+    var grandTotal = Math.round((rawTuition + rawMaterials + rawMisc) * discountRatio);
 
     // 顯示於表格中
-    document.getElementById('td_tuition').innerText = "NT$ " + baseTuition.toLocaleString() + " 元";
-    document.getElementById('td_materials').innerText = "NT$ " + rawMaterials.toLocaleString() + " 元";
-    document.getElementById('td_misc').innerText = "NT$ " + rawMisc.toLocaleString() + " 元";
+    document.getElementById('td_tuition').innerText = "NT$ " + calculatedTuition.toLocaleString() + " 元";
+    document.getElementById('td_materials').innerText = "NT$ " + calculatedMaterials.toLocaleString() + " 元";
+    document.getElementById('td_misc').innerText = "NT$ " + calculatedMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
     
-    // 🎯 法律條款第五條動態連動更新！
+    // 🎯 法律條款第五條動態連動更新為實際核定折後金額！
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
 
-    // 備份數據至 Form 隱藏欄位
-    document.getElementById('hidden_tuition').value = baseTuition + " 元";
-    document.getElementById('hidden_materials').value = rawMaterials + " 元";
-    document.getElementById('hidden_misc').value = rawMisc + " 元";
+    // 🎯 Aegis 核心修復：正確將折後金額同步至隱藏欄位傳遞給 GAS 後端！
+    document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
+    document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
+    document.getElementById('hidden_misc').value = calculatedMisc + " 元";
     document.getElementById('hidden_total').value = grandTotal + " 元";
 
-    // 動態修改郵件主旨標籤
+    // 🎯 核心 UI 規範 6：去身分標籤，動態修改郵件主旨標籤
     var discountText = "標準常規原價";
     if (discountRatio === 0.9) discountText = "享 9 折特惠";
     if (discountRatio === 0.85) discountText = "享 85 折特惠";
@@ -683,7 +706,7 @@ function prepareSubmit(event) {
 window.onload = function() {
     initCanvases();
     
-    // 🎯 貫徹最高指揮官 Joy 指令：審閱期日期即為家長收到當天日期！
+    // 🎯 Aegis 核心 UI 規範 5：審閱期攜回日期即為家長開頁當天日期！
     var today = new Date();
     var minguoYear = today.getFullYear() - 1911;
     var currentMonth = today.getMonth() + 1;
@@ -702,6 +725,12 @@ window.onload = function() {
     }
     
     calculateContractBilling();
+};
+
+// 🎯 視窗尺寸改變時自動維護 Canvas 高解析解析度
+window.onresize = function() {
+    setupCanvas(parentCanvas, parentCtx);
+    setupCanvas(staffCanvas, staffCtx);
 };
 </script>
 </body>
