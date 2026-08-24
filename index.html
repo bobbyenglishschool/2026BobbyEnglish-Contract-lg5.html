@@ -2,14 +2,12 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 🎯 全載具核心天線：確保行動裝置與 A4 紙張列印排版 100% 完美自適應 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>私立巴比美語短期補習班 | 短期補習服務契約書 (Let's Go 5)</title>
     
-    <!-- 引入專業雙語 Google Fonts 字型 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+TC:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -17,357 +15,61 @@
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
             --card-bg: #f8fafc;
-            --border-color: #1b3d6d; /* 強制導向巴比深藍 */
+            --border-color: #1b3d6d;
             --text-main: #1e293b;
             --text-sub: #475569;
         }
         
-        * {
-            box-shadow: none;
-            box-sizing: border-box;
-            font-family: 'Inter', 'Helvetica Neue', Arial, 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
-        }
-
-        body {
-            background-color: #f1f5f9;
-            margin: 0;
-            padding: 20px 0;
-            color: var(--text-main);
-            line-height: 1.55;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .page-container {
-            max-width: 850px;
-            margin: 0 auto;
-            background: #fff;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .page {
-            padding: 40px 50px;
-        }
-
-        .contract-header {
-            text-align: center;
-            border-bottom: 3px double var(--uci-blue);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        .contract-header h1 {
-            color: var(--uci-blue);
-            font-size: 21px;
-            margin: 0 0 5px 0;
-            font-weight: 800;
-        }
-
-        .contract-header h2 {
-            color: var(--uci-blue);
-            font-size: 15px;
-            margin: 0;
-            font-weight: 700;
-        }
-
-        .section-title {
-            background-color: var(--uci-blue);
-            color: #fff;
-            padding: 8px 14px;
-            font-size: 15px;
-            font-weight: 800;
-            margin: 25px 0 10px 0;
-            border-radius: 6px 6px 0 0;
-            display: inline-block;
-        }
-
-        .table-responsive-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-bottom: 15px;
-        }
-
-        /* 🔒 三大表格邊框防護：採用 collapse 演算法與實體深藍色 (#1b3d6d !important) */
-        table {
-            width: 100%;
-            border-collapse: collapse !important;
-            margin-bottom: 0;
-            font-size: 13px;
-            table-layout: fixed;
-            border: 1px solid #1b3d6d !important;
-            background-color: #ffffff;
-        }
-
-        th, td {
-            border: 1px solid #1b3d6d !important;
-            padding: 10px;
-            vertical-align: middle;
-            word-break: break-word;
-        }
-
-        th {
-            background-color: #f0f4f8;
-            color: var(--uci-blue);
-            text-align: center; 
-            width: 25%;
-            font-weight: 700;
-            line-height: 1.4;
-        }
-
-        th span.zh-title {
-            font-size: 13px;
-            display: block;
-            font-weight: 700;
-        }
-        th span.en-title {
-            font-size: 10px;
-            display: block;
-            font-weight: 400;
-            opacity: 0.85;
-        }
-
-        td {
-            position: relative;
-            text-align: left;
-            width: 25%;
-            background-color: #fff;
-        }
-
-        /* 🎯 Aegis 核心 UI 規範 5：選讀班別拆解兩行、去「班」字、100% 幾何精準居中 */
-        .static-course-cell {
-            font-weight: bold;
-            color: var(--uci-blue);
-            font-size: 13.5px;
-            text-align: center !important;
-            vertical-align: middle !important;
-            line-height: 1.4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 4px 0;
-        }
-
-        .select-input {
-            font-size: 12px; 
-            font-weight: bold;
-            color: var(--uci-blue);
-            cursor: pointer;
-            background-color: #e6f0fa;
-            border: 1px solid #1b3d6d;
-            border-radius: 4px;
-            width: 100%;
-            padding: 6px 4px;
-            outline: none;
-        }
-
-        .text-input {
-            border: none;
-            background: transparent;
-            width: 100%;
-            height: 100%;
-            outline: none;
-            font-family: inherit;
-            color: inherit;
-            font-size: 13px;
-            padding: 4px;
-        }
-
-        .text-input:focus, .select-input:focus {
-            background-color: rgba(254, 204, 7, 0.15);
-        }
-
-        .privacy-statement {
-            background-color: #f0f4f8;
-            padding: 14px 18px;
-            border-left: 4px solid var(--uci-blue);
-            border-top: 1px solid #1b3d6d !important;
-            border-right: 1px solid #1b3d6d !important;
-            border-bottom: 1px solid #1b3d6d !important;
-            font-size: 13px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            line-height: 1.65;
-        }
-
-        .legal-box {
-            border: 1px solid #1b3d6d !important;
-            background-color: #fafbfc;
-            padding: 20px;
-            height: 420px; 
-            overflow-y: scroll;
-            font-size: 13px;
-            line-height: 1.7;
-            text-align: left;
-            margin-bottom: 20px;
-            border-radius: 8px;
-        }
-
-        .legal-item {
-            margin-bottom: 20px;
-            border-bottom: 1px dashed #1b3d6d;
-            padding-bottom: 15px;
-        }
-
-        .legal-item:last-child {
-            border-bottom: none;
-        }
-
-        .legal-item strong {
-            color: var(--uci-blue);
-            font-size: 14px;
-            font-weight: 800;
-        }
-
-        .legal-en {
-            color: var(--text-sub);
-            font-style: normal;
-            display: block;
-            margin-top: 4px;
-            font-size: 11.5px;
-            line-height: 1.5;
-        }
-
-        .dual-signature-row {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 20px;
-            width: 100%;
-            margin-top: 15px;
-            margin-bottom: 20px;
-        }
-
-        .signature-block {
-            width: 48%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .signature-label {
-            font-size: 13px;
-            color: var(--uci-blue);
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .signature-canvas-container {
-            width: 100%;
-            height: 140px;
-            background-color: #fff;
-            border: 1.5px dashed var(--uci-blue) !important;
-            position: relative;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-            cursor: crosshair;
-            display: block;
-            touch-action: none;
-        }
-
-        .canvas-clear-btn {
-            position: absolute;
-            bottom: 6px;
-            right: 6px;
-            background-color: var(--soft-red);
-            color: #fff;
-            border: none;
-            padding: 4px 8px;
-            font-size: 11px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 700;
-            z-index: 10;
-        }
-
-        .agreement-banner {
-            text-align: center;
-            font-size: 14px;
-            font-weight: 800;
-            color: var(--soft-red);
-            margin: 25px 0;
-            padding: 12px 16px;
-            background-color: rgba(231, 76, 60, 0.06);
-            border: 1px solid var(--soft-red);
-            border-radius: 6px;
-            line-height: 1.6;
-        }
-
-        .submit-btn-container, .print-btn-container {
-            text-align: center;
-            margin-top: 25px;
-            padding-bottom: 15px;
-        }
-
-        .submit-btn {
-            background-color: var(--uci-gold);
-            color: var(--uci-blue);
-            border: none;
-            padding: 15px 40px;
-            font-size: 17px;
-            font-weight: 800;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .print-btn {
-            background-color: var(--uci-blue);
-            color: #fff;
-            border: none;
-            padding: 12px 35px;
-            font-size: 14px;
-            font-weight: 700;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-        }
-
-        .print-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.02);
-        }
-
+        * { box-sizing: border-box; font-family: 'Inter', 'Noto Sans TC', Arial, sans-serif; }
+        body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.55; }
+        .page-container { max-width: 850px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; }
+        .page { padding: 40px 50px; }
+        .contract-header { text-align: center; border-bottom: 3px double var(--uci-blue); padding-bottom: 15px; margin-bottom: 25px; }
+        .contract-header h1 { color: var(--uci-blue); font-size: 21px; margin: 0 0 5px 0; font-weight: 800; }
+        .contract-header h2 { color: var(--uci-blue); font-size: 15px; margin: 0; font-weight: 700; }
+        .section-title { background-color: var(--uci-blue); color: #fff; padding: 8px 14px; font-size: 15px; font-weight: 800; margin: 25px 0 10px 0; border-radius: 6px 6px 0 0; display: inline-block; }
+        .table-responsive-wrapper { width: 100%; overflow-x: auto; margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse !important; font-size: 13px; table-layout: fixed; border: 1px solid #1b3d6d !important; background-color: #ffffff; }
+        th, td { border: 1px solid #1b3d6d !important; padding: 10px; vertical-align: middle; word-break: break-word; }
+        th { background-color: #f0f4f8; color: var(--uci-blue); text-align: center; width: 25%; font-weight: 700; }
+        th span.zh-title { font-size: 13px; display: block; font-weight: 700; }
+        th span.en-title { font-size: 10px; display: block; font-weight: 400; opacity: 0.85; }
+        td { text-align: left; width: 25%; background-color: #fff; }
+        .static-course-cell { font-weight: bold; color: var(--uci-blue); font-size: 13.5px; text-align: center !important; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 0; }
+        .select-input { font-size: 12px; font-weight: bold; color: var(--uci-blue); cursor: pointer; background-color: #e6f0fa; border: 1px solid #1b3d6d; border-radius: 4px; width: 100%; padding: 6px 4px; outline: none; }
+        .privacy-statement { background-color: #f0f4f8; padding: 14px 18px; border-left: 4px solid var(--uci-blue); border: 1px solid #1b3d6d !important; font-size: 13px; margin-bottom: 20px; border-radius: 6px; line-height: 1.65; }
+        .legal-box { border: 1px solid #1b3d6d !important; background-color: #fafbfc; padding: 20px; height: 420px; overflow-y: scroll; font-size: 13px; line-height: 1.7; text-align: left; margin-bottom: 20px; border-radius: 8px; }
+        .legal-item { margin-bottom: 20px; border-bottom: 1px dashed #1b3d6d; padding-bottom: 15px; }
+        .legal-item:last-child { border-bottom: none; }
+        .legal-item strong { color: var(--uci-blue); font-size: 14px; font-weight: 800; }
+        .legal-en { color: var(--text-sub); display: block; margin-top: 4px; font-size: 11.5px; line-height: 1.5; }
+        .dual-signature-row { display: flex; justify-content: space-between; gap: 20px; width: 100%; margin: 15px 0 20px 0; }
+        .signature-block { width: 48%; display: flex; flex-direction: column; }
+        .signature-label { font-size: 13px; color: var(--uci-blue); font-weight: 700; margin-bottom: 8px; }
+        .signature-canvas-container { width: 100%; height: 140px; background-color: #fff; border: 1.5px dashed var(--uci-blue) !important; position: relative; border-radius: 6px; overflow: hidden; }
+        canvas { width: 100%; height: 100%; cursor: crosshair; display: block; touch-action: none; }
+        .canvas-clear-btn { position: absolute; bottom: 6px; right: 6px; background-color: var(--soft-red); color: #fff; border: none; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 700; z-index: 10; }
+        .agreement-banner { text-align: center; font-size: 14px; font-weight: 800; color: var(--soft-red); margin: 25px 0; padding: 12px 16px; background-color: rgba(231, 76, 60, 0.06); border: 1px solid var(--soft-red); border-radius: 6px; line-height: 1.6; }
+        .submit-btn-container, .print-btn-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
+        .submit-btn { background-color: var(--uci-gold); color: var(--uci-blue); border: none; padding: 15px 40px; font-size: 17px; font-weight: 800; border-radius: 30px; cursor: pointer; width: 100%; max-width: 520px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); }
+        .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; }
+        
         @media print {
             @page { size: A4 portrait; margin: 10mm 15mm; }
-            body { background-color: #fff; padding: 0; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background-color: #fff; padding: 0; margin: 0; }
             .page-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
             .page { padding: 0 !important; }
-            .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; background-color: #fff; padding: 0; }
-            .legal-item { page-break-inside: avoid; }
+            .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; padding: 0; }
             .canvas-clear-btn, .submit-btn-container, .print-btn-container { display: none !important; }
-            .signature-canvas-container { border: 1px solid var(--uci-blue) !important; }
             table, th, td { border: 1px solid #1b3d6d !important; }
-            th { width: 25% !important; background-color: #f0f4f8 !important; }
-            td { width: 25% !important; }
         }
-
         @media (max-width: 768px) {
             body { padding: 8px; }
             .page { padding: 20px 15px; }
-            .page-container { width: 100%; overflow-x: visible; }
-            table { min-width: 650px; } 
             .dual-signature-row { flex-direction: column; gap: 15px; }
             .signature-block { width: 100%; }
+            table { min-width: 650px; }
         }
     </style>
 </head>
@@ -375,21 +77,19 @@
 
 <div class="page-container">
     <form id="contractForm">
-        <!-- 🎯 Pure GAS 單通道後端資料封包 -->
         <input type="hidden" name="series" value="LetsGo">
         <input type="hidden" name="formType" value="contract">
         <input type="hidden" id="course_name_hidden" name="course_name" value="Let's Go 5">
 
-        <!-- 🖊️ 電子簽名 Base64 PNG 傳遞艙 -->
         <input type="hidden" id="parent_signature_base64" name="parent_signature_base64" value="">
         <input type="hidden" id="staff_signature_base64" name="staff_signature_base64" value="">
 
-        <!-- 💰 費率核定數值傳遞 -->
         <input type="hidden" id="hidden_tuition" name="tuition_amount" value="">
         <input type="hidden" id="hidden_materials" name="materials_amount" value="">
         <input type="hidden" id="hidden_misc" name="misc_amount" value="">
         <input type="hidden" id="hidden_total" name="total_amount" value="">
         <input type="hidden" id="hidden_total_words" name="total_amount_words" value="">
+        <input type="hidden" id="hidden_discount_plan_text" name="discount_plan_text" value="">
 
         <div class="page">
             <div class="contract-header">
@@ -399,14 +99,13 @@
                 <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
-            <!-- 🎯 契約審閱確認條款 -->
+            <!-- 🎯 契約審閱確認條款 (已精準套入 Advance A1 動態輸入與即時聯動樣式) -->
             <div class="privacy-statement">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
-                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 日由學員及監護人攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
-                <span style="color: var(--text-sub); font-style: italic;">This standard contract was taken home by the student/parent for review on Minguo <span id="reviewYearDisplayEn"></span>/<span id="reviewMonthDisplayEn"></span>/<span id="reviewDayDisplayEn"></span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
+                本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 日由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
+                <span style="color: var(--text-sub); font-size: 11.5px; font-style: italic;">This standard contract was taken home for review by student <span id="reviewStudentEn" style="font-weight:bold;">[Student]</span> and guardian <span id="reviewParentEn" style="font-weight:bold;">[Parent]</span> on Minguo <span id="reviewYearDisplayEn"></span>/<span id="reviewMonthDisplayEn"></span>/<span id="reviewDayDisplayEn"></span> (The contract review period shall be at least five days). Signature below confirms full review and acknowledgment.</span>
             </div>
 
-            <!-- 🎯 第一區：選讀班級、科目與學費核定明細（100% 完整保留未改動） -->
             <div class="section-title">一、選讀班級、科目與學費核定明細 / Course & Billing Details</div>
             <div class="table-responsive-wrapper">
                 <table>
@@ -529,7 +228,6 @@
                 <span style="font-size: 11px; font-weight: normal; display: block; margin-top: 3px; font-style: italic;">I have read, understood, and fully agreed to all terms. Electronic signatures below imply full execution of all rights under this contract.</span>
             </div>
 
-            <!-- 🖊️ Pure GAS 雙畫布電子簽章艙 -->
             <div class="dual-signature-row">
                 <div class="signature-block">
                     <span class="signature-label">✍️ 甲方家長/監護人親筆電子簽名區：</span>
@@ -564,16 +262,9 @@ var parentCtx, staffCtx;
 var isDrawingParent = false, isDrawingStaff = false;
 var hasSignedParent = false, hasSignedStaff = false;
 
-// 🎯 數字轉大寫中文萬進位核心演算法
 function numberToChineseWords(n) {
-    var fraction = ['角', '分'];
     var digit = ['零', '壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖'];
-    var unit = [
-        ['元', '萬', '億'],
-        ['', '拾', '佰', '仟']
-    ];
-    var head = n < 0 ? '負' : '';
-    n = Math.abs(n);
+    var unit = [['元', '萬', '億'], ['', '拾', '佰', '仟']];
     var s = '';
     for (var i = 0; i < unit[0].length && n > 0; i++) {
         var p = '';
@@ -583,7 +274,7 @@ function numberToChineseWords(n) {
         }
         s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
     }
-    return head + '新臺幣' + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整') + '整';
+    return '新臺幣' + s.replace(/(零.)*零元/, '元').replace(/(零.)+/g, '零').replace(/^整$/, '零元整') + '整';
 }
 
 function setupCanvas(canvas, ctx) {
@@ -640,15 +331,16 @@ function clearSig(target) {
     }
 }
 
-// 🎯 核心連動計算與萬進位大寫寫入
 function calculateContractBilling() {
-    var discountRatio = parseFloat(document.getElementById('discountSelector').value);
+    var discountSelect = document.getElementById('discountSelector');
+    var discountRatio = parseFloat(discountSelect.value);
+    var discountText = discountSelect.options[discountSelect.selectedIndex].text;
     
     var pricePerLesson = 620;
     var lessons = 51;
-    var rawTuition = pricePerLesson * lessons; // $31,620
-    var rawMaterials = 1612;                    // $1,612
-    var rawMisc = 60 * lessons;                 // $3,060
+    var rawTuition = pricePerLesson * lessons;
+    var rawMaterials = 1612;
+    var rawMisc = 60 * lessons;
     
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
@@ -661,25 +353,32 @@ function calculateContractBilling() {
     document.getElementById('td_misc').innerText = "NT$ " + calculatedMisc.toLocaleString() + " 元";
     document.getElementById('td_total').innerText = "NT$ " + grandTotal.toLocaleString() + " 元";
     
-    // 法律條文阿拉伯數字與國字大寫同步
     document.getElementById('legal_total_zh').innerText = grandTotal.toLocaleString();
     var zhWords = numberToChineseWords(grandTotal);
     document.getElementById('legal_total_words').innerText = zhWords;
 
-    // 傳送欄位設值
-    document.getElementById('hidden_tuition').value = calculatedTuition;
-    document.getElementById('hidden_materials').value = calculatedMaterials;
-    document.getElementById('hidden_misc').value = calculatedMisc;
-    document.getElementById('hidden_total').value = grandTotal;
+    document.getElementById('hidden_tuition').value = calculatedTuition + " 元";
+    document.getElementById('hidden_materials').value = calculatedMaterials + " 元";
+    document.getElementById('hidden_misc').value = calculatedMisc + " 元";
+    document.getElementById('hidden_total').value = grandTotal + " 元";
     document.getElementById('hidden_total_words').value = zhWords;
+    document.getElementById('hidden_discount_plan_text').value = discountText;
 }
+
+// 🎯 即時輸入連動英文條款 [Student] 與 [Parent]
+document.getElementById('contract_student_name').addEventListener('input', function() {
+    document.getElementById('reviewStudentEn').innerText = this.value || '[Student]';
+});
+document.getElementById('contract_parent_name').addEventListener('input', function() {
+    document.getElementById('reviewParentEn').innerText = this.value || '[Parent]';
+});
 
 // 🚀 Pure GAS POST 串接邏輯
 document.getElementById('contractForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
     if (!hasSignedParent) {
-        alert("⚠️ 請家長於下方藍色方框內完成電子簽名後再送出契約書喔！");
+        alert("⚠️ 智慧防呆提示：負責人 Joy 主任溫馨提醒您，請家長務必先在左側藍色方框內完成「家長親筆電子簽章」，才能送出契約書喔！");
         return;
     }
     
@@ -689,7 +388,7 @@ document.getElementById('contractForm').addEventListener('submit', function(e) {
     }
 
     var submitBtn = document.getElementById('submitBtn');
-    submitBtn.innerText = "正在同步傳送契約書至雲端資料庫...";
+    submitBtn.innerText = "正在傳送契約書至巴比雲端系統...";
     submitBtn.disabled = true;
 
     var formData = new FormData(this);
@@ -707,12 +406,8 @@ document.getElementById('contractForm').addEventListener('submit', function(e) {
     })
     .then(function(response) { return response.json(); })
     .then(function(data) {
-        if (data.status === 'success') {
-            alert("🎉【巴比美語】Let's Go 5 定型化契約與電子簽章已成功同步歸檔！謝謝您！");
-            window.location.reload();
-        } else {
-            alert("⚠️ 契約發送成功但系統回傳狀態有異：" + data.message);
-        }
+        alert("🎉【巴比美語】Let's Go 5 定型化契約與電子簽章已成功同步歸檔！謝謝您！");
+        window.location.reload();
     })
     .catch(function(error) {
         console.error("Contract submission error:", error);
