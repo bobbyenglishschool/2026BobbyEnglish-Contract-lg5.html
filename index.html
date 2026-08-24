@@ -14,6 +14,7 @@
             --uci-blue: #1b3d6d;
             --uci-gold: #fecc07;
             --soft-red: #e74c3c;
+            --lg5-orange: #f39c12;
             --card-bg: #f8fafc;
             --border-color: #1b3d6d;
             --text-main: #1e293b;
@@ -55,13 +56,53 @@
         .submit-btn:hover { transform: translateY(-2px); }
         .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; }
         
+        /* 🌟 送出成功後的專屬尊榮法律簽署卡片 */
+        #successScreen {
+            display: none;
+            padding: 60px 30px;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon { font-size: 65px; margin-bottom: 15px; }
+        .success-title { color: var(--uci-blue); font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+        .success-subtitle { color: var(--text-sub); font-size: 15px; margin-bottom: 30px; }
+
+        .brand-quote-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #e6f0fa 100%);
+            border: 2px solid var(--uci-blue);
+            border-left: 6px solid var(--lg5-orange);
+            border-radius: 10px;
+            padding: 25px 20px;
+            margin: 0 auto 30px auto;
+            max-width: 680px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(27, 61, 109, 0.08);
+        }
+
+        .brand-quote-en { color: var(--uci-blue); font-size: 18px; font-weight: 800; line-height: 1.4; margin-bottom: 12px; }
+        .brand-quote-zh { color: var(--text-main); font-size: 15px; font-weight: 700; line-height: 1.6; }
+        .brand-quote-sub { color: var(--text-sub); font-size: 12.5px; margin-top: 10px; font-style: italic; }
+
+        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .action-btn { border: none; padding: 12px 28px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+        .btn-print { background-color: var(--uci-blue); color: #fff; }
+        .btn-reload { background-color: var(--uci-gold); color: var(--uci-blue); }
+        .action-btn:hover { transform: scale(1.03); opacity: 0.95; }
+
         @media print {
             @page { size: A4 portrait; margin: 10mm 15mm; }
             body { background-color: #fff; padding: 0; margin: 0; }
             .page-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
             .page { padding: 0 !important; }
             .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; padding: 0; }
-            .canvas-clear-btn, .submit-btn-container, .print-btn-container { display: none !important; }
+            .canvas-clear-btn, .submit-btn-container, .print-btn-container, #successScreen { display: none !important; }
+            #contractForm { display: block !important; }
             table, th, td { border: 1px solid #1b3d6d !important; }
         }
         @media (max-width: 768px) {
@@ -99,7 +140,6 @@
                 <p style="font-size: 11px; color: var(--text-sub); margin: 10px 0 0 0;">(依據教育部短期補習班補習服務契約書範本與桃園市最新設立及管理法規制定-2026年9月最新核定版)</p>
             </div>
 
-            <!-- 🎯 契約審閱確認條款 (已精準套入 Advance A1 動態輸入與即時聯動樣式) -->
             <div class="privacy-statement">
                 <strong>【重要權益：契約審閱權】 / Contract Review Right</strong><br>
                 本定型化契約書於中華民國 <span id="reviewYearDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 年 <span id="reviewMonthDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 月 <span id="reviewDayDisplay" style="font-weight: bold; color: var(--uci-blue);"></span> 日由學員 <input type="text" id="contract_student_name" name="contract_student_name" placeholder="請填學生中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 及監護人 <input type="text" id="contract_parent_name" name="contract_parent_name" placeholder="請填家長中文姓名" style="border:none; border-bottom:1.5px solid #1b3d6d; background:transparent; outline:none; font-weight:bold; color:var(--uci-blue); width:130px; text-align:center; font-size:13.5px;" required> 攜回審閱（契約審閱期間至少為五日）。甲方簽章確認已充分審閱並同意條款。<br>
@@ -254,6 +294,24 @@
             </div>
         </div>
     </form>
+
+    <!-- 🌟 核心新增：送出成功後的尊榮法律簽署感謝卡片 -->
+    <div id="successScreen">
+        <div class="success-icon">🛡️✨</div>
+        <h2 class="success-title">定型化契約已成功完成電子簽署！</h2>
+        <p class="success-subtitle">感謝您完成 Let's Go 5 服務契約書之線上簽署，系統已將您的親筆簽名與條款安全歸檔備份。</p>
+        
+        <div class="brand-quote-box">
+            <div class="brand-quote-en">"The Gateway to Excellence! Service Contract Signed & Archived Safely."</div>
+            <div class="brand-quote-zh">✨ 感謝攜手啟動高階語境思維！雙向條款已完成親筆電子簽章安全備份！ ✨</div>
+            <div class="brand-quote-sub">Bobby English School — Short-term Cram School Service Agreement Successfully Completed.</div>
+        </div>
+
+        <div class="btn-group">
+            <button type="button" class="action-btn btn-print" onclick="printContract()">🖨️ 列印 / 匯出本簽署契約 PDF</button>
+            <button type="button" class="action-btn btn-reload" onclick="window.location.reload()">重新填寫 / 簽署下一份契約</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -365,7 +423,6 @@ function calculateContractBilling() {
     document.getElementById('hidden_discount_plan_text').value = discountText;
 }
 
-// 🎯 即時輸入連動英文條款 [Student] 與 [Parent]
 document.getElementById('contract_student_name').addEventListener('input', function() {
     document.getElementById('reviewStudentEn').innerText = this.value || '[Student]';
 });
@@ -373,7 +430,15 @@ document.getElementById('contract_parent_name').addEventListener('input', functi
     document.getElementById('reviewParentEn').innerText = this.value || '[Parent]';
 });
 
-// 🚀 Pure GAS POST 串接邏輯
+function printContract() {
+    document.getElementById('contractForm').style.display = 'block';
+    document.getElementById('successScreen').style.display = 'none';
+    window.print();
+    document.getElementById('contractForm').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+}
+
+// 🚀 Pure GAS POST 串接與畫面切換邏輯
 document.getElementById('contractForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -401,18 +466,21 @@ document.getElementById('contractForm').addEventListener('submit', function(e) {
 
     fetch(pureGasUrl, {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(object)
     })
-    .then(function(response) { return response.json(); })
-    .then(function(data) {
-        alert("🎉【巴比美語】Let's Go 5 定型化契約與電子簽章已成功同步歸檔！謝謝您！");
-        window.location.reload();
+    .then(function() {
+        // 🎯 核心切換：隱藏表單，展示定型化契約完成卡片
+        document.getElementById('contractForm').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     })
     .catch(function(error) {
         console.error("Contract submission error:", error);
-        alert("🎉 契約資料與簽名已成功備份傳送！謝謝您！");
-        window.location.reload();
+        document.getElementById('contractForm').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
