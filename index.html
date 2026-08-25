@@ -23,7 +23,7 @@
         
         * { box-sizing: border-box; font-family: 'Inter', 'Noto Sans TC', Arial, sans-serif; }
         body { background-color: #f1f5f9; margin: 0; padding: 20px 0; color: var(--text-main); line-height: 1.55; }
-        .page-container { max-width: 850px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; }
+        .page-container { max-width: 850px; margin: 0 auto; background: #fff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; width: 100%; position: relative; }
         .page { padding: 40px 50px; }
         .contract-header { text-align: center; border-bottom: 3px double var(--uci-blue); padding-bottom: 15px; margin-bottom: 25px; }
         .contract-header h1 { color: var(--uci-blue); font-size: 21px; margin: 0 0 5px 0; font-weight: 800; }
@@ -47,8 +47,9 @@
         .dual-signature-row { display: flex; justify-content: space-between; gap: 20px; width: 100%; margin: 15px 0 20px 0; }
         .signature-block { width: 48%; display: flex; flex-direction: column; }
         .signature-label { font-size: 13px; color: var(--uci-blue); font-weight: 700; margin-bottom: 8px; }
-        .signature-canvas-container { width: 100%; height: 140px; background-color: #fff; border: 1.5px dashed var(--uci-blue) !important; position: relative; border-radius: 6px; overflow: hidden; }
+        .signature-canvas-container { width: 100%; height: 140px; background-color: #fff; border: 1.5px dashed var(--uci-blue) !important; position: relative; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         canvas { width: 100%; height: 100%; cursor: crosshair; display: block; touch-action: none; }
+        .sig-preview-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .canvas-clear-btn { position: absolute; bottom: 6px; right: 6px; background-color: var(--soft-red); color: #fff; border: none; padding: 4px 8px; font-size: 11px; border-radius: 4px; cursor: pointer; font-weight: 700; z-index: 10; }
         .agreement-banner { text-align: center; font-size: 14px; font-weight: 800; color: var(--soft-red); margin: 25px 0; padding: 12px 16px; background-color: rgba(231, 76, 60, 0.06); border: 1px solid var(--soft-red); border-radius: 6px; line-height: 1.6; }
         .submit-btn-container, .print-btn-container { text-align: center; margin-top: 25px; padding-bottom: 15px; }
@@ -56,7 +57,12 @@
         .submit-btn:hover { transform: translateY(-2px); }
         .print-btn { background-color: var(--uci-blue); color: #fff; border: none; padding: 12px 35px; font-size: 14px; font-weight: 700; border-radius: 20px; cursor: pointer; }
         
-        /* 🌟 送出成功後的專屬尊榮法律簽署卡片 */
+        #loadingOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.92);
+            display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 9999;
+            color: var(--uci-blue); font-weight: 800; font-size: 18px;
+        }
+
         #successScreen {
             display: none;
             padding: 60px 30px;
@@ -101,7 +107,7 @@
             .page-container { max-width: 100%; width: 100%; box-shadow: none; border-radius: 0; }
             .page { padding: 0 !important; }
             .legal-box { height: auto !important; overflow-y: visible !important; border: none !important; padding: 0; }
-            .canvas-clear-btn, .submit-btn-container, .print-btn-container, #successScreen { display: none !important; }
+            .canvas-clear-btn, .submit-btn-container, .print-btn-container, #successScreen, #loadingOverlay { display: none !important; }
             #contractForm { display: block !important; }
             table, th, td { border: 1px solid #1b3d6d !important; }
         }
@@ -116,8 +122,14 @@
 </head>
 <body>
 
+<div id="loadingOverlay">
+    <div style="font-size: 40px; margin-bottom: 10px;">🛡️🛹</div>
+    <div>正在調閱雲端契約資料，請稍候...</div>
+</div>
+
 <div class="page-container">
     <form id="contractForm">
+        <!-- 🎯 精準對齊 LetsGo_Contract 12 欄位 JSON 規格 -->
         <input type="hidden" name="series" value="LetsGo">
         <input type="hidden" name="formType" value="contract">
         <input type="hidden" id="course_name_hidden" name="course_name" value="Let's Go 5">
@@ -271,16 +283,16 @@
             <div class="dual-signature-row">
                 <div class="signature-block">
                     <span class="signature-label">✍️ 甲方家長/監護人親筆電子簽名區：</span>
-                    <div class="signature-canvas-container">
+                    <div class="signature-canvas-container" id="parentSigBox">
                         <canvas id="parentSigPad"></canvas>
-                        <button type="button" class="canvas-clear-btn" onclick="clearSig('parent')">清除重簽 / Clear</button>
+                        <button type="button" class="canvas-clear-btn" id="parentClearBtn" onclick="clearSig('parent')">清除重簽 / Clear</button>
                     </div>
                 </div>
                 <div class="signature-block">
                     <span class="signature-label">🛡️ 乙方補習班授權行政審查人員簽名區：</span>
-                    <div class="signature-canvas-container">
+                    <div class="signature-canvas-container" id="staffSigBox">
                         <canvas id="staffSigPad"></canvas>
-                        <button type="button" class="canvas-clear-btn" onclick="clearSig('staff')">清除重簽 / Clear</button>
+                        <button type="button" class="canvas-clear-btn" id="staffClearBtn" onclick="clearSig('staff')">清除重簽 / Clear</button>
                     </div>
                 </div>
             </div>
@@ -289,13 +301,13 @@
                 <button type="button" class="print-btn" onclick="window.print()">🖨️ 本定型化契約 ── 一鍵匯出 A4 雙語實體 PDF / 雙向列印</button>
             </div>
 
-            <div class="submit-btn-container">
+            <div class="submit-btn-container" id="submitBtnWrapper">
                 <button type="submit" id="submitBtn" class="submit-btn">我已閱讀完畢 ── 確認電子送出法律契約書</button>
             </div>
         </div>
     </form>
 
-    <!-- 🌟 核心新增：送出成功後的尊榮法律簽署感謝卡片 -->
+    <!-- 🌟 送出成功後的尊榮法律簽署感謝卡片 -->
     <div id="successScreen">
         <div class="success-icon">🛡️✨</div>
         <h2 class="success-title">定型化契約已成功完成電子簽署！</h2>
@@ -320,6 +332,9 @@ var parentCtx, staffCtx;
 var isDrawingParent = false, isDrawingStaff = false;
 var hasSignedParent = false, hasSignedStaff = false;
 
+// 固定雙向 API 節點 URL
+var PURE_GAS_URL = "https://script.google.com/macros/s/AKfycbwr4AAm42X6bvPwEbp8tPhyc0N3js3zhicgkD5YGrnk5EnKmeGakB7FUIcCH98glKrwVA/exec";
+
 function numberToChineseWords(n) {
     var digit = ['零', '壹', '貳', '參', '肆', '伍', '陸', '柒', '捌', '玖'];
     var unit = [['元', '萬', '億'], ['', '拾', '佰', '仟']];
@@ -336,6 +351,7 @@ function numberToChineseWords(n) {
 }
 
 function setupCanvas(canvas, ctx) {
+    if (!canvas) return;
     var rect = canvas.parentElement.getBoundingClientRect();
     var ratio = window.devicePixelRatio || 1;
     canvas.width = rect.width * ratio;
@@ -349,17 +365,20 @@ function setupCanvas(canvas, ctx) {
 function initCanvases() {
     parentCanvas = document.getElementById('parentSigPad');
     staffCanvas = document.getElementById('staffSigPad');
-    parentCtx = parentCanvas.getContext('2d');
-    staffCtx = staffCanvas.getContext('2d');
+    if (parentCanvas) parentCtx = parentCanvas.getContext('2d');
+    if (staffCanvas) staffCtx = staffCanvas.getContext('2d');
 
-    setupCanvas(parentCanvas, parentCtx);
-    parentCtx.strokeStyle = "#1b3d6d";
+    if (parentCanvas) {
+        setupCanvas(parentCanvas, parentCtx);
+        parentCtx.strokeStyle = "#1b3d6d";
+        bindCanvasEvents(parentCanvas, parentCtx, function(status) { isDrawingParent = status; hasSignedParent = true; });
+    }
     
-    setupCanvas(staffCanvas, staffCtx);
-    staffCtx.strokeStyle = "#0077b6";
-
-    bindCanvasEvents(parentCanvas, parentCtx, function(status) { isDrawingParent = status; hasSignedParent = true; });
-    bindCanvasEvents(staffCanvas, staffCtx, function(status) { isDrawingStaff = status; hasSignedStaff = true; });
+    if (staffCanvas) {
+        setupCanvas(staffCanvas, staffCtx);
+        staffCtx.strokeStyle = "#0077b6";
+        bindCanvasEvents(staffCanvas, staffCtx, function(status) { isDrawingStaff = status; hasSignedStaff = true; });
+    }
 }
 
 function bindCanvasEvents(canvas, ctx, setStatus) {
@@ -380,10 +399,10 @@ function bindCanvasEvents(canvas, ctx, setStatus) {
 }
 
 function clearSig(target) {
-    if(target === 'parent') { 
+    if(target === 'parent' && parentCtx) { 
         parentCtx.clearRect(0, 0, parentCanvas.width, parentCanvas.height); 
         hasSignedParent = false; 
-    } else { 
+    } else if (staffCtx) { 
         staffCtx.clearRect(0, 0, staffCanvas.width, staffCanvas.height); 
         hasSignedStaff = false; 
     }
@@ -396,9 +415,9 @@ function calculateContractBilling() {
     
     var pricePerLesson = 620;
     var lessons = 51;
-    var rawTuition = pricePerLesson * lessons;
-    var rawMaterials = 1612;
-    var rawMisc = 60 * lessons;
+    var rawTuition = pricePerLesson * lessons; // 31,620
+    var rawMaterials = 1612;                    // 1,612
+    var rawMisc = 60 * lessons;                 // 3,060
     
     var calculatedTuition = Math.round(rawTuition * discountRatio);
     var calculatedMaterials = Math.round(rawMaterials * discountRatio);
@@ -438,6 +457,89 @@ function printContract() {
     document.getElementById('successScreen').style.display = 'block';
 }
 
+// 🚀 Row-ID 超短網址全自動與雙向 doGet 解碼還原機制
+function loadRowDataIfPresent() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var rowIndex = urlParams.get('row');
+    var series = urlParams.get('series') || 'LetsGo';
+    var formType = urlParams.get('formType') || 'contract';
+    var autoPrint = urlParams.get('auto_print');
+
+    if (rowIndex) {
+        document.getElementById('loadingOverlay').style.display = 'flex';
+        var fetchUrl = PURE_GAS_URL + "?row=" + rowIndex + "&series=" + series + "&formType=" + formType;
+        
+        fetch(fetchUrl)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            if (data && data.status === "success" && data.rowData) {
+                var row = data.rowData;
+                
+                // 判讀若是從 LetsGo_Contract 查回 (12欄位對齊)
+                if (formType === 'contract' && row.length >= 10) {
+                    if (row[2]) { // 學員姓名
+                        document.getElementById('contract_student_name').value = row[2];
+                        document.getElementById('reviewStudentEn').innerText = row[2];
+                    }
+                    if (row[3]) { // 家長姓名
+                        document.getElementById('contract_parent_name').value = row[3];
+                        document.getElementById('reviewParentEn').innerText = row[3];
+                    }
+                    if (row[4]) { // 方案名稱 (匹配下拉選單)
+                        var sel = document.getElementById('discountSelector');
+                        for(var i=0; i<sel.options.length; i++){
+                            if(sel.options[i].text.indexOf(row[4]) !== -1 || row[4].indexOf(sel.options[i].text) !== -1){
+                                sel.selectedIndex = i;
+                                calculateContractBilling();
+                                break;
+                            }
+                        }
+                    }
+                    
+                    // 還原家長簽名檔 (取代 Canvas 為 <img> 呈現)
+                    if (row[9] && row[9].indexOf('http') === 0) {
+                        var pBox = document.getElementById('parentSigBox');
+                        pBox.innerHTML = '<img src="' + row[9] + '" class="sig-preview-img" alt="家長電子簽名">';
+                        hasSignedParent = true;
+                    }
+                    // 還原補習班核章/經辦簽名檔
+                    if (row[10] && row[10].indexOf('http') === 0) {
+                        var sBox = document.getElementById('staffSigBox');
+                        sBox.innerHTML = '<img src="' + row[10] + '" class="sig-preview-img" alt="補習班核章">';
+                        hasSignedStaff = true;
+                    }
+
+                    // 預覽與列印模式下隱藏提交按鈕
+                    if (document.getElementById('submitBtnWrapper')) {
+                        document.getElementById('submitBtnWrapper').style.display = 'none';
+                    }
+
+                } else if (formType === 'registration' && row.length >= 10) {
+                    // 若是從報名表點過來聯動
+                    if (row[2]) {
+                        document.getElementById('contract_student_name').value = row[2];
+                        document.getElementById('reviewStudentEn').innerText = row[2];
+                    }
+                    if (row[8]) {
+                        document.getElementById('contract_parent_name').value = row[8];
+                        document.getElementById('reviewParentEn').innerText = row[8];
+                    }
+                }
+
+                // 🎯 支援一鍵開啟自動觸發列印
+                if (autoPrint === 'true') {
+                    setTimeout(function() { window.print(); }, 800);
+                }
+            }
+        })
+        .catch(function(err) {
+            document.getElementById('loadingOverlay').style.display = 'none';
+            console.log("Row-ID Fetch Error:", err);
+        });
+    }
+}
+
 // 🚀 Pure GAS POST 串接與畫面切換邏輯
 document.getElementById('contractForm').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -447,8 +549,10 @@ document.getElementById('contractForm').addEventListener('submit', function(e) {
         return;
     }
     
-    document.getElementById('parent_signature_base64').value = parentCanvas.toDataURL("image/png");
-    if (hasSignedStaff) {
+    if (parentCanvas && parentCanvas.toDataURL) {
+        document.getElementById('parent_signature_base64').value = parentCanvas.toDataURL("image/png");
+    }
+    if (hasSignedStaff && staffCanvas && staffCanvas.toDataURL) {
         document.getElementById('staff_signature_base64').value = staffCanvas.toDataURL("image/png");
     }
 
@@ -462,16 +566,13 @@ document.getElementById('contractForm').addEventListener('submit', function(e) {
         object[key] = value;
     });
 
-    var pureGasUrl = "https://script.google.com/macros/s/AKfycbwr4AAm42X6bvPwEbp8tPhyc0N3js3zhicgkD5YGrnk5EnKmeGakB7FUIcCH98glKrwVA/exec";
-
-    fetch(pureGasUrl, {
+    fetch(PURE_GAS_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(object)
     })
     .then(function() {
-        // 🎯 核心切換：隱藏表單，展示定型化契約完成卡片
         document.getElementById('contractForm').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -505,11 +606,12 @@ window.onload = function() {
     }
     
     calculateContractBilling();
+    loadRowDataIfPresent();
 };
 
 window.onresize = function() {
-    setupCanvas(parentCanvas, parentCtx);
-    setupCanvas(staffCanvas, staffCtx);
+    if (parentCanvas && parentCtx) setupCanvas(parentCanvas, parentCtx);
+    if (staffCanvas && staffCtx) setupCanvas(staffCanvas, staffCtx);
 };
 </script>
 </body>
